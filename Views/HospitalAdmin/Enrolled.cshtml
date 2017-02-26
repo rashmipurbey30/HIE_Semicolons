@@ -1,0 +1,82 @@
+﻿
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>
+            Enrolled Hospital Home
+        </h2>
+    </div>
+</div>
+
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm("Enrolled", "HospitalAdmin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true)
+            <div class="row">
+
+                <div>
+                    <p><a href="/PatientDataRequest"><img src="../../Images/request.png" /></a>
+                        @Html.ActionLink("Awaiting Requests", "Index", "PatientDataRequest")
+
+                    </p>
+                </div>
+                <p></p>
+                <div>
+                    <p><a href="~/PatientDataRequest/Create"><img src="../../Images/raise.jpg" /></a>
+                      
+                        @Html.ActionLink("Raise Patient Data Request", "Index", "Patient", new { Reqtype = "Raise" }, null)
+                    </p>
+
+                </div>
+                <div>
+                    <p><a href="/PatientTreatmentDetail/Create"><img src="../../Images/upload.png" /></a>
+                        @Html.ActionLink("Upload Patient Treatment Data", "Index", "Patient", new { Reqtype = "Upload" }, null)
+                    </p>
+
+                </div>
+                <div>
+                    <p><a href="/Patient"><img src="../../Images/manage.png" /></a>
+                        @Html.ActionLink("Maintain Patients", "Index", "Patient")
+                    </p>
+
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <h2>Benefits of HIE</h2>
+                    <p>
+                        <ul>
+                            <li>Improves public health reporting and monitoring</li>
+                            <li>
+                                Provides the backbone of technical infrastructure for leverage by national and State-level initiatives
+                            </li>
+                            <li>
+                                Provides a basic level of interoperability among various sources of patient data maintained by individual physicians and organizations
+                            </li>
+                            <li>
+                                Stimulates consumer education and patients' involvement in their own health care
+                            </li>
+                            <li> Increases efficiency by eliminating unnecessary paperwork</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="row" style="font-size:xx-small;color:brown">
+                <h6>* Please click on "Awaiting Request" to see the Patient data requests came from various hospitals or HIE</h6>
+                <h6>* Please click on "Raise Patient Data Request" to raise request for Particular Patient details from other hospitals or HIE</h6>
+
+            </div>
+        </div>
+
+    }
+</div>

@@ -1,0 +1,160 @@
+﻿@model IEnumerable<VirtualHIE.Models.Hospital>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+    $(function () {
+        // Set 'Select All' to checked if all other boxes are already checked
+        $('#selectAll').prop('checked', $('.check').length == $('.check:checked').length);
+
+        // Add click function to 'Select All' to select all other boxes
+        $('#selectAll').click(function () {
+            $('.check').prop('checked', this.checked);
+        });
+
+        // Add click function to each child checkbox
+        $('.check').click(function () {
+            $('#selectAll').prop('checked', $('.check').length == $('.check:checked').length);
+        });
+    })
+
+
+
+    $(document).ready(function () {
+        $('#Enroll').on('click', function () {
+
+            var Hospitalids = [];
+            $('input:checked').each(function () {
+
+                Hospitalids.push($(this).attr("value"));
+            });
+            $.ajax({
+                url: "/HIEAdmin/ArrayHandler",
+                type: "POST",
+                data: { Hospitalids: Hospitalids },
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data.status === 'OK') {
+                        window.location.href = data.Url
+                    }
+                    else {
+                        alert("The status cannot be updated at this time");
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+        <h2>Hospital List</h2>
+    </div>
+</div>
+
+<div class="hie-containerTop">
+    <table align="right" width="60%">
+        <tr>
+
+            <td valign="top">
+                @Html.ActionLink("Raise Patient Data Request", "Create", "PatientDataRequest")
+            </td>
+            <td width="5%"></td>
+            <td valign="top">
+                @Html.ActionLink("Show Patient Data Requests", "PatientRequestStatus", "HIEAdmin")
+
+            </td>
+            <td width="5%"></td>
+            <td valign="top">
+                @Html.ActionLink("Upload Patient Treatment Data", "Create", "PatientTreatmentDetail")
+
+            </td>
+        </tr>
+
+    </table>
+
+
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td>
+                    <br />
+
+                    <br />
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+
+            <tr>
+                <th><input type="checkbox" id="selectAll" /></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HospitalName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnrollmentStatu.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.UserId)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    @if (item.EnrollmentStatus == 2)
+                    {
+                        <td><input type="checkbox" name="@item.Id" value="@item.Id" class="check" /></td>
+                    }
+                    else
+                    {
+                        <td><input type="checkbox" name="@item.Id" value="@item.Id" class="check" disabled="disabled" /></td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HospitalName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollmentStatu.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserId)
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <input type="button" id="Enroll" class="btn btn-default" value="Send Enrollment Request"><br />
+                </td>
+
+            </tr>
+        </table>
+
+    }
+</div>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+

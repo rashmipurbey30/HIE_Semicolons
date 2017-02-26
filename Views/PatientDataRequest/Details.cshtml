@@ -1,0 +1,50 @@
+﻿@model VirtualHIE.Models.PatientDataRequest
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PatientDataRequest</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hospital.HospitalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hospital.HospitalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.AadharId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.AadharId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientDataRequestStatu.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientDataRequestStatu.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

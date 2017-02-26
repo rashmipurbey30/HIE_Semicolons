@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HealthInformationExchangeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EnrollmentStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Hospitals" Relationship="Self.FK_Hospital_EnrollmentStatus" FromRole="EnrollmentStatus" ToRole="Hospital" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HospitalName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="EnrollmentStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EnrollmentStatu" Relationship="Self.FK_Hospital_EnrollmentStatus" FromRole="Hospital" ToRole="EnrollmentStatus" />
+    <NavigationProperty Name="State" Relationship="Self.FK_Hospital_State" FromRole="Hospital" ToRole="State" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Hospital_Users" FromRole="Hospital" ToRole="Users" />
+    <NavigationProperty Name="PatientDataAccesses" Relationship="Self.FK_PatientDataAccess_Hospital" FromRole="Hospital" ToRole="PatientDataAccess" />
+    <NavigationProperty Name="PatientDataRequests" Relationship="Self.FK_PatientDataRequest_Hospital" FromRole="Hospital" ToRole="PatientDataRequest" />
+    <NavigationProperty Name="PatientTreatmentDetails" Relationship="Self.FK_PatientTreatmentDetails_Hospital" FromRole="Hospital" ToRole="PatientTreatmentDetails" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AadharId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="MobileNumber" Type="Int64" Nullable="false" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PatientDataAccesses" Relationship="Self.FK_PatientDataAccess_Patient" FromRole="Patient" ToRole="PatientDataAccess" />
+    <NavigationProperty Name="PatientDataRequests" Relationship="Self.FK_PatientDataRequest_Patient" FromRole="Patient" ToRole="PatientDataRequest" />
+    <NavigationProperty Name="PatientTreatmentDetails" Relationship="Self.FK_PatientTreatmentDetails_Patient" FromRole="Patient" ToRole="PatientTreatmentDetails" />
+  </EntityType>
+  <EntityType Name="PatientDataAccess">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="HospitalId" Type="Int32" Nullable="false" />
+    <Property Name="AccessRequestDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsLatest" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_PatientDataAccess_Hospital" FromRole="PatientDataAccess" ToRole="Hospital" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_PatientDataAccess_Patient" FromRole="PatientDataAccess" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="PatientDataRequest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HospitalId" Type="Int32" Nullable="false" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_PatientDataRequest_Hospital" FromRole="PatientDataRequest" ToRole="Hospital" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_PatientDataRequest_Patient" FromRole="PatientDataRequest" ToRole="Patient" />
+    <NavigationProperty Name="PatientDataRequestStatu" Relationship="Self.FK_PatientDataRequest_PatientDataRequestStatus" FromRole="PatientDataRequest" ToRole="PatientDataRequestStatus" />
+  </EntityType>
+  <EntityType Name="PatientDataRequestStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PatientDataRequests" Relationship="Self.FK_PatientDataRequest_PatientDataRequestStatus" FromRole="PatientDataRequestStatus" ToRole="PatientDataRequest" />
+  </EntityType>
+  <EntityType Name="PatientTreatmentDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="HospitalId" Type="Int32" Nullable="false" />
+    <Property Name="TreatmentDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Files" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_PatientTreatmentDetails_Hospital" FromRole="PatientTreatmentDetails" ToRole="Hospital" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_PatientTreatmentDetails_Patient" FromRole="PatientTreatmentDetails" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Hospitals" Relationship="Self.FK_Hospital_State" FromRole="State" ToRole="Hospital" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hospitals" Relationship="Self.FK_Hospital_Users" FromRole="Users" ToRole="Hospital" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK_Hospital_EnrollmentStatus">
+    <End Role="EnrollmentStatus" Type="Self.EnrollmentStatu" Multiplicity="1" />
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EnrollmentStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hospital">
+        <PropertyRef Name="EnrollmentStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hospital_State">
+    <End Role="State" Type="Self.State" Multiplicity="1" />
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateId" />
+      </Principal>
+      <Dependent Role="Hospital">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hospital_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Hospital">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientDataAccess_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="PatientDataAccess" Type="Self.PatientDataAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientDataAccess">
+        <PropertyRef Name="HospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientDataRequest_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="PatientDataRequest" Type="Self.PatientDataRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientDataRequest">
+        <PropertyRef Name="HospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTreatmentDetails_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="PatientTreatmentDetails" Type="Self.PatientTreatmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientTreatmentDetails">
+        <PropertyRef Name="HospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientDataAccess_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientDataAccess" Type="Self.PatientDataAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientDataAccess">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientDataRequest_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientDataRequest" Type="Self.PatientDataRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientDataRequest">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTreatmentDetails_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientTreatmentDetails" Type="Self.PatientTreatmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientTreatmentDetails">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientDataRequest_PatientDataRequestStatus">
+    <End Role="PatientDataRequestStatus" Type="Self.PatientDataRequestStatu" Multiplicity="1" />
+    <End Role="PatientDataRequest" Type="Self.PatientDataRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientDataRequestStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientDataRequest">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HealthInformationExchangeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EnrollmentStatus" EntityType="Self.EnrollmentStatu" />
+    <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="PatientDataAccesses" EntityType="Self.PatientDataAccess" />
+    <EntitySet Name="PatientDataRequests" EntityType="Self.PatientDataRequest" />
+    <EntitySet Name="PatientDataRequestStatus" EntityType="Self.PatientDataRequestStatu" />
+    <EntitySet Name="PatientTreatmentDetails" EntityType="Self.PatientTreatmentDetail" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="States" EntityType="Self.State" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Hospital_EnrollmentStatus" Association="Self.FK_Hospital_EnrollmentStatus">
+      <End Role="EnrollmentStatus" EntitySet="EnrollmentStatus" />
+      <End Role="Hospital" EntitySet="Hospitals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hospital_State" Association="Self.FK_Hospital_State">
+      <End Role="State" EntitySet="States" />
+      <End Role="Hospital" EntitySet="Hospitals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hospital_Users" Association="Self.FK_Hospital_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Hospital" EntitySet="Hospitals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientDataAccess_Hospital" Association="Self.FK_PatientDataAccess_Hospital">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="PatientDataAccess" EntitySet="PatientDataAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientDataRequest_Hospital" Association="Self.FK_PatientDataRequest_Hospital">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="PatientDataRequest" EntitySet="PatientDataRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTreatmentDetails_Hospital" Association="Self.FK_PatientTreatmentDetails_Hospital">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="PatientTreatmentDetails" EntitySet="PatientTreatmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientDataAccess_Patient" Association="Self.FK_PatientDataAccess_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientDataAccess" EntitySet="PatientDataAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientDataRequest_Patient" Association="Self.FK_PatientDataRequest_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientDataRequest" EntitySet="PatientDataRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTreatmentDetails_Patient" Association="Self.FK_PatientTreatmentDetails_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientTreatmentDetails" EntitySet="PatientTreatmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientDataRequest_PatientDataRequestStatus" Association="Self.FK_PatientDataRequest_PatientDataRequestStatus">
+      <End Role="PatientDataRequestStatus" EntitySet="PatientDataRequestStatus" />
+      <End Role="PatientDataRequest" EntitySet="PatientDataRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

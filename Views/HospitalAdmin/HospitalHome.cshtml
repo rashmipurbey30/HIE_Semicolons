@@ -1,0 +1,173 @@
+﻿@model VirtualHIE.Models.Hospital
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+        <h2>Hospital Dashboard</h2>
+    </div>
+</div>
+<div class="hie-containerTop">
+    @using (Html.BeginForm("HospitalHome", "HospitalAdmin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+          
+            @Html.ValidationSummary(true)
+            @if (Session["enrollmentStatus"] != null && Session["enrollmentStatus"].ToString() == "Awaiting")
+            {
+                @*Not Enrolled View*@
+                <div id="Awaiting">
+                    <div class="row">
+                        <div>
+
+                            <p>
+                                <b>Greetings from Hospital Information Exchange System !!!</b>
+                                You have been invited to enroll for the HIE Sytem. Please Enroll for the same by clicking on Enroll button.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+
+                            <div id="radioList">
+
+                                @Html.RadioButton("status", "Enrolled", true)
+                                @Html.Label("Yes, I want to Enroll")
+                                @Html.RadioButton("status", "Rejected")
+                                @Html.Label("No, I don't want to Enroll")
+                                <input type="submit" value="Submit" class="btn btn-default" id="btnSubmit" />
+
+                            </div>
+                        </div>
+                        <div>
+                            @Html.ValidationMessage("Information")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <h2>Benefits of HIE</h2>
+                            <p>
+                                <ul>
+                                    <li>Improves public health reporting and monitoring</li>
+                                    <li>
+                                        Provides the backbone of technical infrastructure for leverage by national and State-level initiatives
+                                    </li>
+                                    <li>
+                                        Provides a basic level of interoperability among various sources of patient data maintained by individual physicians and organizations
+                                    </li>
+                                    <li>
+                                        Stimulates consumer education and patients' involvement in their own health care
+                                    </li>
+                                    <li> Increases efficiency by eliminating unnecessary paperwork</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Session["enrollmentStatus"] != null && Session["enrollmentStatus"].ToString() == "Rejected")
+            {
+                @*Rejected View*@
+                <div id="Rejected">
+                    <div class="row">
+                        <div>
+                            <p>
+                               <b>Greetings from Hospital Information Exchange System !!!</b>
+                                You have not enrolled for the HIE System. Please Enroll for the same by clicking on Enroll button.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div id="radioList">
+                                @Html.RadioButton("status", "Enrolled", true)
+                                @Html.Label("Yes, I want to Enroll")
+                                <input type="submit" value="Submit" class="btn btn-default" id="btnSubmit" />
+                            </div>
+
+                        </div>
+                        <div>
+                            @Html.ValidationMessage("Information")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <h2>Benefits of HIE</h2>
+                            <p>
+                                <ul>
+                                    <li>Improves public health reporting and monitoring</li>
+                                    <li>
+                                        Provides the backbone of technical infrastructure for leverage by national and State-level initiatives
+                                    </li>
+                                    <li>
+                                        Provides a basic level of interoperability among various sources of patient data maintained by individual physicians and organizations
+                                    </li>
+                                    <li>
+                                        Stimulates consumer education and patients' involvement in their own health care
+                                    </li>
+                                    <li> Increases efficiency by eliminating unnecessary paperwork</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Session["enrollmentStatus"] != null && Session["enrollmentStatus"].ToString() == "Not Enrolled")
+            {
+                
+                @*NotEnrolled View*@
+                @*NotEnrolled View*@
+                <div id="NotEnrolled">
+                    <div class="row" style="text-align:center">
+                        <div>
+                            <p>
+                                <b>Greetings from Hospital Information Exchange System !!!</b>
+                                <p style="color:red">
+                                You have not enrolled for the HIE System. Please Enroll for the same by clicking on Enroll button.<p>
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        <div>
+                            <div id="radioList">
+                                @Html.RadioButton("status", "Enrolled", true)
+                                @Html.Label("Yes, I want to Enroll")
+                                <br />
+                                <input type="submit" value="Submit" class="btn btn-default" id="btnSubmit" />
+                            </div>
+                        </div>
+                        <div>
+                            @Html.ValidationMessage("Information")
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div>
+                            <h2>Benefits of HIE</h2>
+                            <p>
+                                <ul>
+                                    <li>Improves public health reporting and monitoring</li>
+                                    <li>
+                                        Provides the backbone of technical infrastructure for leverage by national and State-level initiatives
+                                    </li>
+                                    <li>
+                                        Provides a basic level of interoperability among various sources of patient data maintained by individual physicians and organizations
+                                    </li>
+                                    <li>
+                                        Stimulates consumer education and patients' involvement in their own health care
+                                    </li>
+                                    <li> Increases efficiency by eliminating unnecessary paperwork</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    </div>

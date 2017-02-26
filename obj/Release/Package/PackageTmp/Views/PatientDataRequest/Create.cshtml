@@ -1,0 +1,63 @@
+﻿@model VirtualHIE.Models.PatientDataRequest
+
+
+
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>Raise Request for paitent data</h2>
+    </div>
+</div>
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+           
+            @Html.ValidationSummary(true)
+
+            <div class="form-group" >
+                @Html.LabelFor(model => model.HospitalId, "Requesting Hospital", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("HospitalId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.HospitalId)
+                </div>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                @Html.LabelFor(model => model.Patient.Name, "Patient Name", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.PatientId)
+                </div>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                @Html.LabelFor(model => model.RequestDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RequestDate)
+                    @Html.ValidationMessageFor(model => model.RequestDate)
+                </div>
+            </div>
+
+            <div class="form-group" style="visibility:hidden">
+                @Html.LabelFor(model => model.Status, "Status", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Status", String.Empty)
+                    @Html.ValidationMessageFor(model => model.Status)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Raise Request" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,75 @@
+﻿
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>
+            Enrolled Hospital Home
+        </h2>
+    </div>
+</div>
+
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm("Enrolled", "HospitalAdmin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true)
+            <div class="row">
+
+                <div>
+                    <p>
+                        @Html.ActionLink("Awaiting Requests", "Index", "PatientDataRequest")
+
+                    </p>
+                </div>
+                <p></p>
+                <div>
+                    <p>
+                        @Html.ActionLink("Raise Patient Data Request", "Create", "PatientDataRequest")
+                    </p>
+
+                </div>
+                <div>
+                    <p>
+                        @Html.ActionLink("Upload Patient Treatment Data", "Create", "PatientTreatmentDetail")
+                    </p>
+
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <h2>Benefits of HIE</h2>
+                    <p>
+                        <ul>
+                            <li>Improves public health reporting and monitoring</li>
+                            <li>
+                                Provides the backbone of technical infrastructure for leverage by national and State-level initiatives
+                            </li>
+                            <li>
+                                Provides a basic level of interoperability among various sources of patient data maintained by individual physicians and organizations
+                            </li>
+                            <li>
+                                Stimulates consumer education and patients' involvement in their own health care
+                            </li>
+                            <li> Increases efficiency by eliminating unnecessary paperwork</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="row" style="font-size:xx-small;color:brown">
+                <h6>* Please click on "Awaiting Request" to see the Patient data requests came from various hospitals or HIE</h6>
+                <h6>* Please click on "Raise Patient Data Request" to raise request for Particular Patient details from other hospitals or HIE</h6>
+
+            </div>
+        </div>
+
+    }
+</div>

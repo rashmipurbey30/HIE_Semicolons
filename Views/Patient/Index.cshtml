@@ -1,0 +1,141 @@
+﻿@model IEnumerable<VirtualHIE.Models.Patient>
+
+@{
+    ViewBag.Title = "Patient List";
+}
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+        <h2>Patient List</h2>
+    </div>
+</div>
+<div class="hie-containerTop">
+    <div>
+        <p>
+            @Html.ActionLink("Register New Patient", "Create", "Patient")
+        </p>
+
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name or AadharID: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" class="btn btn-primary" />
+            @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-primary" })
+
+        </p>
+        <p style="margin-left:180px">
+            @Html.ActionLink("Advanced Search", "Index")
+        </p>
+    }
+
+    <table class="table" style="border:double">
+        <tr style="background-color:ActiveCaption">
+            <th>
+                @Html.ActionLink("Aadhar ID", "Index", new { sortOrder = ViewBag.AadharIDSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.ActionLink("DOB", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            @if ((Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin"))
+            {
+            <th>
+                Action
+            </th>
+
+            }
+            @if (ViewBag.ReqType == "Raise")
+            {
+                <th>
+
+                </th>
+            }
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.AadharId, "Index", "PatientTreatmentDetail", new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                @if (ViewBag.ReqType == "Raise")
+                {
+                    <td>
+                        @Html.ActionLink("Raise request", "Create", "PatientDataRequest", new { id = item.Id }, null)
+                    </td>
+                }
+                else if (ViewBag.ReqType == "Upload")
+                {
+                    <td>
+                        @Html.ActionLink("Upload Treatment Data", "Create", "PatientTreatmentDetail", new { id = item.Id }, null)
+                    </td>
+                }
+                else
+                {
+                    if ((Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    }
+                        
+                     
+                }
+            </tr>
+        }
+    </table>
+    @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+    {
+        <div>
+            <p>
+                <a href="/HIEAdmin/AdminHome"><img src="../../Images/back.bmp" /></a>
+                <b>@Html.ActionLink("Back to Home", "AdminHome", "HIEAdmin")</b>
+            </p>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p>
+                <a href="/HIEAdmin/AdminHome"><img src="../../Images/back.bmp" /></a>
+                <b>@Html.ActionLink("Back to Home", "HospitalHome", "HospitalAdmin")</b>
+            </p>
+        </div>
+    }
+</div>

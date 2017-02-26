@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="836e1f7200bd46b19c1d7dd43a0ce135" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.EnrollmentStatu" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.Hospital" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.Patient" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.PatientDataAccess" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.PatientDataRequest" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.PatientDataRequestStatu" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.PatientTreatmentDetail" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.Role" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.State" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthInformationExchangeModel.User" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_Hospital_EnrollmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_Hospital_State" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_Hospital_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientDataAccess_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientDataRequest_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientTreatmentDetails_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientDataAccess_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientDataRequest_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientTreatmentDetails_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_PatientDataRequest_PatientDataRequestStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthInformationExchangeModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

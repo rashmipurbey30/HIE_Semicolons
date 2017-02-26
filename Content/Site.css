@@ -1,0 +1,127 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+    .hie-logoWrapper{
+       width: 100%;
+     height: 96px;
+      position: fixed;
+      z-index:1000;
+    }
+    .hie-logoBackground{
+        
+        width:100%;
+        height:100%;
+       
+    z-index: 1000;
+    }
+    .hie-logoText{
+           position: absolute;
+    z-index: 100;
+    color: white;
+    top: 28px;
+    float: right;
+    right: 84px;
+    font-size: 30px;
+    }
+    .hie-navBarStyle{
+            background-color: #55A799 !important ;
+        color: #FFFFFF !important;
+    }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #FFF;
+}
+.hie-footer{
+    margin-bottom: -20px !important;
+    text-align:center;
+}
+.hie-headerWrapper {
+    width: 100%;
+    left: 0px;
+    box-sizing: border-box;
+    height: 50px;
+    z-index: 999;
+    margin-top: 97px;
+}
+.hie-headerContainer {
+    background-color: rgba(85, 167, 153, 0.31);
+    padding-top: 1px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    border-bottom: 1px solid #BFCDDE;
+}
+.hie-containerTop {
+       position: relative;
+    box-shadow: 3px 3px 6px 1px rgba(0, 0, 0, 0.15);
+    border-radius: 1px;
+    background-color: white;
+    padding: 30px;
+    /*margin-top: 97px;*/
+    margin-left: 30px;
+    margin-right: 33px;
+    top: 70px;
+}

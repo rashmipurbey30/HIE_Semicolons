@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title HIE System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top hie-navBarStyle">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Session["UserId"] != null)
+                    {
+                        if (Session["UserId"].ToString().Trim() != "HIE_Admin")
+                        {
+                            <li>@Html.ActionLink("Home", "HospitalHome", "HospitalAdmin")</li>
+                        }
+                        else if (Session["UserId"].ToString().Trim() == "HIE_Admin")
+                        {
+                            <li>@Html.ActionLink("Home", "AdminHome", "HIEAdmin")</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    }
+
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserId"] != null)
+                    {
+                        <li style="vertical-align:top">@Html.Label("Hello " + Session["UserId"].ToString() + "!")</li>
+                        <li>@Html.ActionLink("Log off", "Logoff", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Log in", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    }
+
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+    <div class="hie-logoWrapper">
+        <img class="hie-logoBackground" src="~/Images/ecg_logo.jpg" />
+        
+        <div class="hie-logoText">
+
+            Hospital Information Exchange System
+        </div>
+    </div>
+    
+
+    <div class="container-fluid" style="height:700px;">
+        
+                @RenderBody()
+               
+           
+     </div>
+
+    <footer class="hie-footer">
+        <p>&copy; @DateTime.Now.Year - Powered by Persistent Systems</p>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

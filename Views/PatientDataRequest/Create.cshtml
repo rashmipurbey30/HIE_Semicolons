@@ -1,0 +1,88 @@
+﻿@model VirtualHIE.Models.PatientDataRequest
+
+
+
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>Request patient data</h2>
+    </div>
+</div>
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm())
+    {
+    <div class="form-horizontal" style="margin-left:400px">
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.PatientId)
+        @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.HospitalId, "Requesting Hospital", new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.DropDownList("HospitalId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.HospitalId)
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.AadharId, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.AadharId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.FirstName, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.LastName, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.DateOfBirth, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.DateOfBirth)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.MobileNumber, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.MobileNumber)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patient.EmailId, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.DisplayFor(model => model.Patient.EmailId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RequestDate, new { @class = "control-label col-md-2" })
+            <div>
+                @Html.EditorFor(model => model.RequestDate)
+                @Html.ValidationMessageFor(model => model.RequestDate)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Urgent", new { @class = "control-label col-md-2" })
+            <div>
+                @Html.CheckBox("Urgent")
+            </div>
+        </div>
+        <div style="align-content: center; margin-left: 93px;">
+            <input type="submit" value="Raise Request" class="btn btn-default" />
+        </div>
+    </div>
+        @Html.AntiForgeryToken()
+        <b>@Html.ActionLink("Back to Patient List", "Index", "Patient")</b>
+    }
+
+</div>

@@ -1,0 +1,56 @@
+﻿@model VirtualHIE.Models.PatientDataRequest
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PatientDataRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hospital.HospitalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hospital.HospitalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.AadharId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.AadharId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientDataRequestStatu.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientDataRequestStatu.Status)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

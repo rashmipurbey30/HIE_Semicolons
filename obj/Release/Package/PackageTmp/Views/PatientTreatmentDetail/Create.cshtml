@@ -1,0 +1,95 @@
+﻿@model VirtualHIE.Models.PatientTreatmentDetail
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/adapters/jquery.js"></script>
+
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>Upload Patient Data</h2>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function fileCheck(obj) {
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp' formats are allowed.");
+        }
+    }
+</script>
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm("Createdata", "PatientTreatmentDetail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">            
+          
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Patient.Name, "Patient Name", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.PatientId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HospitalId, "Hospital Name", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("HospitalId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.HospitalId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TreatmentDetails, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.TreatmentDetails, new { @class = "ckeditor", placeholder = "Content" })
+                    @Html.ValidationMessageFor(model => model.TreatmentDetails)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Files, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                    @Html.ValidationMessageFor(model => model.Files)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedOn, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CreatedOn)
+                    @Html.ValidationMessageFor(model => model.CreatedOn)
+                </div>
+            </div>
+
+            <div class="form-group" style="visibility:hidden">
+                @Html.LabelFor(model => model.CreatedBy, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("1");
+                    @Html.ValidationMessageFor(model => model.CreatedBy)
+                </div>
+            </div>
+
+           
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+

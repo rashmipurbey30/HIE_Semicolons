@@ -1,0 +1,67 @@
+﻿@model VirtualHIE.Models.Patient
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+        <h2>Patient Detail</h2>
+    </div>
+</div>
+
+
+<div class="hie-containerTop">
+    <div >
+        
+        <dl class="dl-horizontal" style="margin-left:400px">
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.AadharId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AadharId)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MobileNumber)
+            </dd>
+            <dt style="text-align:left">
+                @Html.DisplayNameFor(model => model.EmailId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EmailId)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", null, new { id = Model.Id, @class = "btn btn-primary" }) |
+        @Html.ActionLink("Back to Patient List", "Index", null, new { @class = "btn btn-primary" })
+    </p>
+</div>

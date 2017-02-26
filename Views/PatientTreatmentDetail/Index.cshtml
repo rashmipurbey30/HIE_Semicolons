@@ -1,0 +1,89 @@
+﻿@model IEnumerable<VirtualHIE.Models.PatientTreatmentDetail>
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+        <h2>Patient Treatment Details</h2>
+    </div>
+</div>
+<div class="hie-containerTop">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient.Name)
+            </th>
+            <th>
+                @Html.DisplayName("Treated By Hospital")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient.AadharId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Files)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th style="visibility:hidden">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+
+        </tr>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patient.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hospital.HospitalName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patient.AadharId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentDetails)
+                    </td>
+
+                    <td>
+                        <img src="/PatientTreatmentDetail/RetrieveImage/@item.Id" alt="" height=100 width=200 />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td style="visibility:hidden">
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" align="center" style="color:brown">
+                    @Html.Label("No Data Available")
+                </td>
+            </tr>
+        }
+
+    </table>
+    @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+    {
+        <div>
+          @Html.ActionLink("Back to Home", "Index", "Patient")
+        </div>
+    }
+    else
+    {
+        <div>
+            @Html.ActionLink("Back to Home", "Index", "Patient")
+        </div>
+    }
+</div>

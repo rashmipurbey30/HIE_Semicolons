@@ -1,0 +1,160 @@
+﻿@model IEnumerable<VirtualHIE.Models.PatientDataRequest>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+    $(function () {
+        // Set 'Select All' to checked if all other boxes are already checked
+        $('#selectAll').prop('checked', $('.check').length == $('.check:checked').length);
+
+        // Add click function to 'Select All' to select all other boxes
+        $('#selectAll').click(function () {
+
+            $('.check').prop('checked', this.checked);
+        });
+
+        // Add click function to each child checkbox
+        $('.check').click(function () {
+
+            $('#selectAll').prop('checked', $('.check').length == $('.check:checked').length);
+        });
+    })
+
+
+
+    $(document).ready(function () {
+        $(".Button").on('click', function () {
+            var Status = ($(this).attr("id"));
+            var PDRids = [];
+            $('input[class="check"]:checked').each(function () {
+
+                PDRids.push($(this).attr("value"));
+            });
+            $.ajax({
+                url: "/PatientDataRequest/ArrayHandler",
+                type: "POST",
+                data: { PDRids: PDRids, Status: Status },
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data.status === 'OK') {
+                        window.location.href = data.Url
+                    }
+                    else {
+                        alert("The status cannot be updated at this time");
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+
+<div class="hie-headerWrapper">
+    <div class="hie-headerContainer">
+
+        <h2>Patient Data Request Details</h2>
+    </div>
+</div>
+
+<div class="hie-containerTop">
+    @using (Html.BeginForm("Search", "PatientDataRequest", FormMethod.Post))
+    {
+        if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+        {
+            <div id="radioList">
+                <b>Search by:</b>
+                @Html.RadioButton("searchBy", "Open", true)
+                @Html.Label("Open")
+                @Html.RadioButton("searchBy", "Closed")
+                @Html.Label("Closed")
+                @Html.RadioButton("searchBy", "Broadcasted")
+                @Html.Label("Broadcasted")
+                <input type="submit" value="Search" class="btn btn-default" id="BtnSearch" />
+            </div>
+        }
+    }
+    <table class="table">
+        <tr>
+            @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+            {
+                <th><input type="checkbox" id="selectAll" /></th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Hospital.HospitalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestDate)
+            </th>
+            @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+            }
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+                {
+                    if (item.Status == 1)
+                    {
+                        <td><input type="checkbox" name="@item.id" value="@item.id" class="check" /></td>
+                    }
+                    else
+                    {
+                        <td><input type="checkbox" name="@item.id" value="@item.id" class="check" disabled="disabled" /></td>
+                    }
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hospital.HospitalName)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Patient.Name, "Index", "PatientTreatmentDetail", new { id = item.PatientId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+                <td>
+                    @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+                    {
+                        @Html.DisplayFor(modelItem => item.PatientDataRequestStatu.Status)
+                    }
+                </td>
+                @*@if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    }*@
+            </tr>
+        }
+
+    </table>
+    <table>
+        <tr>
+            @if (Session["UserId"] != null && Session["UserId"].ToString().Trim() == "HIE_Admin")
+            {
+
+                <td>
+                    <input type="button" id="Broadcasted" class="Button btn btn-default" value="Request from other hospitals"><br />
+                </td>
+                <td width="10%"></td>
+
+                <td>
+
+                    <input type="button" id="Closed" class="Button btn btn-default" value="Close patient data request"><br />
+                </td>
+            }
+        </tr>
+    </table>
+
+</div>
